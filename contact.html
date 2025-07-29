@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MV制作依頼フォーム - Nacht | ナハト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="url"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #2c3e50;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        input[type="radio"] {
+            width: auto;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        .submit-btn {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            background: #34495e;
+        }
+
+        .playlist-btn {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .playlist-btn:hover {
+            background: #34495e;
+        }
+
+        .form-note {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MV制作依頼フォーム</h1>
+        
+        <form action="https://formspree.io/f/mvgqrdev" method="POST">
+            <input type="hidden" name="_subject" value="MV制作依頼">
+            
+            <div class="form-group">
+                <label for="activity_name">活動名 <span class="required">(必須)</span></label>
+                <input type="text" id="activity_name" name="activity_name" placeholder="例：○○（アーティスト名/ユニット名）" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sns_url">活動SNS URL <span class="required">(必須)</span></label>
+                <input type="url" id="sns_url" name="sns_url" placeholder="例：https://twitter.com/○○ / https://www.youtube.com/@○○" required>
+            </div>
+
+            <div class="form-group">
+                <label for="purpose">用途（例：歌ってみた、オリジナル楽曲） <span class="required">(必須)</span></label>
+                <input type="text" id="purpose" name="purpose" placeholder="例：歌ってみた / オリジナル楽曲" required>
+            </div>
+
+            <div class="form-group">
+                <label for="song_name">楽曲名 <span class="required">(必須)</span></label>
+                <input type="text" id="song_name" name="song_name" placeholder="例：○○（楽曲名）" required>
+            </div>
+
+            <div class="form-group">
+                <label for="original_url">カバーの場合は原曲URL</label>
+                <input type="url" id="original_url" name="original_url" placeholder="例：https://www.youtube.com/watch?v=○○">
+            </div>
+
+            <div class="form-group">
+                <div class="section-title">ご希望する連絡手段 <span class="required">(必須)</span></div>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="contact_x" name="contact_method" value="X(旧Twitter)のDM" required>
+                        <label for="contact_x">X（旧Twitter）のDM</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="contact_email" name="contact_method" value="メール" required>
+                        <label for="contact_email">メール</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">メールの方のみご連絡メールアドレス</label>
+                <input type="email" id="email" name="email" placeholder="例：example@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="budget">ご予算 <span class="required">(必須)</span></label>
+                <input type="text" id="budget" name="budget" required>
+            </div>
+
+            <div class="form-group">
+                <div class="section-title">お振込方法 <span class="required">(必須)</span></div>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="payment_paypal" name="payment_method" value="PayPay" required>
+                        <label for="payment_paypal">PayPay</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="payment_bank" name="payment_method" value="銀行振込" required>
+                        <label for="payment_bank">銀行振込</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="delivery_date">納品希望日 <span class="required">(必須)</span></label>
+                <div class="form-note">※フルMVに関しましては制作者手から最低10日間いただております。</div>
+                <input type="date" id="delivery_date" name="delivery_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="release_date">公開予定日</label>
+                <input type="date" id="release_date" name="release_date">
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="credit_names">クレジット表記名（作詞作曲編曲、音源、MIX、マスタリング、イラスト担当）</label>
+                <textarea id="credit_names" name="credit_names" placeholder="担当者名を記入してください"></textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="section-title">サムネイルの希望 <span class="required">(必須)</span></div>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="thumbnail_yes" name="thumbnail_needed" value="はい" required>
+                        <label for="thumbnail_yes">はい</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="thumbnail_no" name="thumbnail_needed" value="いいえ" required>
+                        <label for="thumbnail_no">いいえ</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="section-title">髪揺れ等のアニメーションの希望 <span class="required">(必須)</span></div>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="animation_yes" name="animation_needed" value="はい" required>
+                        <label for="animation_yes">はい</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="animation_no" name="animation_needed" value="いいえ" required>
+                        <label for="animation_no">いいえ</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="material_url">素材データURL（イラスト、音源、歌詞） <span class="required">(必須)</span></label>
+                <input type="url" id="material_url" name="material_url" placeholder="例：https://gigafile.nu/12345" required>
+            </div>
+
+            <div class="form-group">
+                <label for="reference_video">参考動画（想定している完成形に近いイメージのものを添付してください） <span class="required">(必須)</span></label>
+                <a href="https://youtube.com/playlist?list=PLooHxUATgdtV02jTvWy0XWbPmzAIZT3ZB&si=cqMf_pf6RhdJMGfl" target="_blank" class="playlist-btn">参考動画再生リストを見る</a>
+                <textarea id="reference_video" name="reference_video" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="other_requests">その他色味など伝えたい事項</label>
+                <textarea id="other_requests" name="other_requests"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">依頼を送信する</button>
+        </form>
+    </div>
+
+    <script>
+        // フォーム送信時の処理
+        document.querySelector('form').addEventListener('submit', function(e) {
+            // 必須項目のチェック
+            const requiredFields = document.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#e74c3c';
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('必須項目を入力してください。');
+                return;
+            }
+            
+            // 送信確認
+            if (!confirm('依頼内容を送信しますか？')) {
+                e.preventDefault();
+                return;
+            }
+            
+            // 送信後のメッセージ表示
+            setTimeout(function() {
+                document.querySelector('.container').innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <h1 style="color: #2c3e50; margin-bottom: 2rem;">ご依頼いただきありがとうございます</h1>
+                        <p style="font-size: 1.1rem; color: #666; line-height: 1.8;">
+                            ご希望する連絡手段あてに返信いたしますので<br>しばらくお待ちください。
+                        </p>
+                    </div>
+                `;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
