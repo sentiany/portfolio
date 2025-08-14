@@ -5,385 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Nacht | ナハト</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans JP', sans-serif; line-height: 1.6; color: #333; }
 
         .section {
-            width: 100vw;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            width: 100vw; min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             padding: 2rem;
         }
 
         /* Profile Section */
-        .profile-section {
-            background: #f5f5f5;
-            color: #333;
-        }
-
+        .profile-section { background: #f5f5f5; color: #333; }
         .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 2rem;
-            border: 4px solid rgba(0,0,0,0.1);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 150px; height: 150px; border-radius: 50%;
+            margin-bottom: 2rem; border: 4px solid rgba(0,0,0,0.1);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .profile-image img { width: 100%; height: 100%; object-fit: cover; }
         .profile-name {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-            text-align: center;
-            font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ', 'Meiryo', sans-serif;
+            font-size: 1.8rem; margin-bottom: 1rem; font-weight: 500; text-align: center;
+            font-family: 'Noto Sans JP','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ','Meiryo',sans-serif;
         }
-
-        .profile-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
+        .profile-subtitle { font-size: 1.2rem; opacity: 0.8; margin-bottom: 2rem; text-align: center; }
+        .social-links { display: flex; gap: 1rem; }
         .social-link {
-            width: 50px;
-            height: 50px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            width: 50px; height: 50px; background: rgba(0,0,0,0.1); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #333; text-decoration: none; transition: all 0.3s ease;
         }
-
-        .social-link img {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
-
-        .social-link:hover {
-            background: rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
+        .social-link img { width: 24px; height: 24px; object-fit: contain; }
+        .social-link:hover { background: rgba(0,0,0,0.2); transform: translateY(-2px); }
 
         /* Works Section */
-        .works-section {
-            background: #f5f5f5;
-            color: #333;
-            padding: 4rem 0;
-            width: 100%;
-        }
-
+        .works-section { background: #f5f5f5; color: #333; padding: 4rem 0; width: 100%; }
         .works-title {
-            font-size: 2.2rem;
-            margin-bottom: 3rem;
-            font-weight: 500;
-            text-align: center;
-            font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ', 'Meiryo', sans-serif;
+            font-size: 2.2rem; margin-bottom: 3rem; font-weight: 500; text-align: center;
+            font-family: 'Noto Sans JP','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ','Meiryo',sans-serif;
         }
-
         .works-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 1.5rem;
-            max-width: 100vw;
-            width: 100%;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem; max-width: 100vw; width: 100%; margin-bottom: 2rem; padding: 0 1rem;
         }
-
         .work-item {
-            aspect-ratio: 16/9;
-            background: rgba(0,0,0,0.05);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
-            position: relative;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.1);
+            aspect-ratio: 16/9; background: rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; position: relative;
+            backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.1);
         }
-
-        .work-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
+        .work-item img { width: 100%; height: 100%; object-fit: cover; transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
         .work-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1;
+            content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1;
         }
-
-        .work-item:hover::before {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .work-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .work-item:hover img {
-            transform: scale(1.1);
-            filter: brightness(0.5);
-        }
-
+        .work-item:hover::before { background: rgba(0,0,0,0.3); }
+        .work-item:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .work-item:hover img { transform: scale(1.1); filter: brightness(0.5); }
         .work-popup {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            padding: 1.5rem;
-            text-align: center;
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 3;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
+            padding: 1.5rem; text-align: center; opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 3;
         }
-
-        .work-item:hover .work-popup {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .work-popup-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .work-popup-artist {
-            font-size: 1rem;
-            color: white;
-            opacity: 0.9;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
+        .work-item:hover .work-popup { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .work-popup-title { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .work-popup-artist { font-size: 1rem; color: #fff; opacity: 0.9; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
         .cover-badge {
-            display: inline-block;
-            background: rgba(0,0,0,0.4);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            display: inline-block; background: rgba(0,0,0,0.4); color: #fff;
+            padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 0.5rem;
         }
-
         .works-button {
-            background: transparent;
-            color: #2c3e50;
-            padding: 1.2rem 3rem;
-            border: 2px solid #2c3e50;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            box-shadow: none;
+            background: transparent; color: #2c3e50; padding: 1.2rem 3rem; border: 2px solid #2c3e50;
+            border-radius: 30px; text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: all 0.3s ease; display: inline-block; box-shadow: none;
         }
-
-        .works-button:hover {
-            background: #2c3e50;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
-        }
+        .works-button:hover { background: #2c3e50; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4); }
 
         /* Contact Section */
-        .contact-section {
-            background: #f5f5f5;
-            color: #333;
-            padding: 4rem 2rem;
-            text-align: left;
-        }
-
+        .contact-section { background: #f5f5f5; color: #333; padding: 4rem 2rem; text-align: left; }
         .contact-title {
-            font-size: 2.2rem;
-            margin-bottom: 3rem;
-            font-weight: 500;
-            text-align: center;
-            font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ', 'Meiryo', sans-serif;
+            font-size: 2.2rem; margin-bottom: 3rem; font-weight: 500; text-align: center;
+            font-family: 'Noto Sans JP','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ','Meiryo',sans-serif;
         }
+        .contact-content { max-width: 800px; width: 100%; }
+        .contact-item { margin-bottom: 3rem; padding: 2rem; }
+        .contact-item h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #333; }
+        .contact-item ul { list-style: none; padding-left: 0; }
+        .contact-item li { margin-bottom: 0.8rem; opacity: 0.9; padding-left: 1rem; position: relative; }
+        .contact-item li::before { content: '・'; position: absolute; left: 0; }
 
-        .contact-content {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .contact-item {
-            margin-bottom: 3rem;
-            padding: 2rem;
-        }
-
-        .contact-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .contact-item ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .contact-item li {
-            margin-bottom: 0.8rem;
-            opacity: 0.9;
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .contact-item li::before {
-            content: '・';
-            position: absolute;
-            left: 0;
-        }
-
-        /* ご用意いただくものとご依頼の流れは点なし */
+        /* ご用意いただくもの/ご依頼の流れ は先頭点なし */
         .contact-item:nth-child(3) li,
-        .contact-item:nth-child(4) li {
-            padding-left: 0;
-        }
-
+        .contact-item:nth-child(4) li { padding-left: 0; }
         .contact-item:nth-child(3) li::before,
-        .contact-item:nth-child(4) li::before {
-            content: '';
-        }
+        .contact-item:nth-child(4) li::before { content: ''; }
 
-        .price-section {
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .price-section strong {
-            color: #333;
-        }
-
-        .tweet-embed {
-            margin: 2rem 0;
-            padding: 2rem;
-        }
-
+        .price-section { padding: 1.5rem; margin-top: 1rem; }
+        .price-section strong { color: #333; }
+        .tweet-embed { margin: 2rem 0; padding: 2rem; }
         .request-btn {
-            display: inline-block;
-            background: #2c3e50;
-            color: white;
-            padding: 1.2rem 3rem;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            display: inline-block; background: #2c3e50; color: #fff; padding: 1.2rem 3rem; text-decoration: none;
+            border-radius: 30px; font-size: 1.1rem; font-weight: 600; transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
         }
-
-        .request-btn:hover {
-            background: #34495e;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
-        }
+        .request-btn:hover { background: #34495e; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4); }
 
         /* Navigation - Hidden */
-        .nav-dots {
-            display: none;
-        }
+        .nav-dots { display: none; }
 
         /* Smooth scroll container */
-        .scroll-container {
-            height: 100vh;
-            overflow-y: scroll;
-        }
+        .scroll-container { height: 100vh; overflow-y: scroll; }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .works-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-                padding: 0 0.5rem;
-                max-width: 100vw;
-                min-width: unset;
-            }
-            
-            .profile-name, .works-title, .contact-title {
-                font-size: 1.8rem;
-                font-weight: 500;
-            }
-            
-            .section {
-                padding: 2rem 1rem;
-            }
-
-            .contact-item {
-                padding: 1.5rem;
-            }
+            .works-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 0 0.5rem; max-width: 100vw; }
+            .profile-name, .works-title, .contact-title { font-size: 1.8rem; font-weight: 500; }
+            .section { padding: 2rem 1rem; }
+            .contact-item { padding: 1.5rem; }
         }
-
-        @media (max-width: 480px) {
-            .works-grid {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .works-grid {
-                grid-template-columns: repeat(4, 1fr);
-                max-width: 100vw;
-                gap: 1rem;
-                padding: 0 0.5rem;
-            }
-        }
+        @media (max-width: 480px) { .works-grid { grid-template-columns: 1fr; padding: 0 1rem; } }
+        @media (min-width: 1200px) { .works-grid { grid-template-columns: repeat(4, 1fr); max-width: 100vw; gap: 1rem; padding: 0 0.5rem; } }
     </style>
 </head>
 <body>
-    <!-- Navigation Dots - Removed -->
-
     <div class="scroll-container">
         <!-- Profile Section -->
         <section class="section profile-section" id="profile">
@@ -403,6 +145,7 @@
         <section class="section works-section" id="works">
             <h2 class="works-title">Works</h2>
             <div class="works-grid">
+                <!-- 1 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=nr7w7ORYt54', '_blank')">
                     <img src="img/白日夢.png" alt="白日夢">
                     <div class="work-popup">
@@ -411,6 +154,18 @@
                         <div class="work-popup-artist">sumire様</div>
                     </div>
                 </div>
+
+                <!-- ★ 追加: 玖蘭はぴせ様 -->
+                <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=A1oHCw9z2Ak&list=RDMMA1oHCw9z2Ak&start_radio=1', '_blank')">
+                    <img src="img/玖蘭はぴせ様サムネイル.png" alt="玖蘭はぴせ">
+                    <div class="work-popup">
+                        <div class="cover-badge">COVER</div>
+                        <div class="work-popup-title">如月アテンション</div>
+                        <div class="work-popup-artist">玖蘭はぴせ様</div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=1xyJlA7YIuM', '_blank')">
                     <img src="img/The_beginning.png" alt="The_beginning">
                     <div class="work-popup">
@@ -419,6 +174,8 @@
                         <div class="work-popup-artist">Arise様</div>
                     </div>
                 </div>
+
+                <!-- 3 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=pHN6wm-Zl1o', '_blank')">
                     <img src="img/小さきもの.png" alt="小さきもの">
                     <div class="work-popup">
@@ -427,6 +184,8 @@
                         <div class="work-popup-artist">星良りる様</div>
                     </div>
                 </div>
+
+                <!-- 4 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=N_UOShks11M', '_blank')">
                     <img src="img/想い咲くとき.jpg" alt="想い咲くとき">
                     <div class="work-popup">
@@ -435,6 +194,8 @@
                         <div class="work-popup-artist">ily様</div>
                     </div>
                 </div>
+
+                <!-- 5 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=em-QXfa3bsg', '_blank')">
                     <img src="img/お願い.jpg" alt="お願い">
                     <div class="work-popup">
@@ -443,6 +204,8 @@
                         <div class="work-popup-artist">点P様</div>
                     </div>
                 </div>
+
+                <!-- 6 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=j6yNvHbkIBw', '_blank')">
                     <img src="img/うまぴょい伝説.jpg" alt="うまぴょい伝説">
                     <div class="work-popup">
@@ -451,6 +214,8 @@
                         <div class="work-popup-artist">幻刻鈴華様</div>
                     </div>
                 </div>
+
+                <!-- 7 -->
                 <div class="work-item" onclick="window.open('https://www.youtube.com/watch?v=HDwMh3A4Yvo', '_blank')">
                     <img src="img/嘘月.png" alt="嘘月">
                     <div class="work-popup">
@@ -460,6 +225,7 @@
                     </div>
                 </div>
             </div>
+
             <div style="text-align: center;">
                 <a href="https://youtube.com/playlist?list=PLooHxUATgdtWJfKCROLWRjHJZTSNV_Xpx&si=1iplX9CBs0rB1iCV" target="_blank" class="works-button">作品再生リスト</a>
             </div>
@@ -482,7 +248,6 @@
                     <h3>料金</h3>
                     <div class="price-section">
                         <p><strong>基本料金10000円</strong>のご依頼とさせていただきます。</p>
-                        
                         <p style="margin-top: 1rem;"><strong>※オプション</strong></p>
                         <ul style="margin-top: 0.5rem;">
                             <li>サムネ制作 ＋2000円</li>
@@ -528,7 +293,7 @@
             const email = 'sentiany910@gmail.com';
             navigator.clipboard.writeText(email).then(function() {
                 alert('メールアドレスをコピーしました: ' + email);
-            }).catch(function(err) {
+            }).catch(function() {
                 // フォールバック: 古いブラウザ対応
                 const textArea = document.createElement('textarea');
                 textArea.value = email;
@@ -540,25 +305,21 @@
             });
         }
 
+        // 残しておく（将来ナビドットを戻す場合など）
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             section.scrollIntoView({ behavior: 'smooth' });
-            
-            // Update navigation dots
             const navDots = document.querySelectorAll('.nav-dot');
             const sections = ['profile', 'works', 'contact'];
             const currentIndex = sections.indexOf(sectionId);
-            
             navDots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentIndex);
             });
         }
 
-        // Update active dot on scroll
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.section');
             const navDots = document.querySelectorAll('.nav-dot');
-            
             let currentSection = 0;
             sections.forEach((section, index) => {
                 const rect = section.getBoundingClientRect();
@@ -566,7 +327,6 @@
                     currentSection = index;
                 }
             });
-            
             navDots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSection);
             });
