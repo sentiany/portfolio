@@ -32,6 +32,15 @@
             font-weight: 300;
         }
 
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-weight: 400;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 0.5rem;
+        }
+
         .form-group { margin-bottom: 2rem; }
 
         label {
@@ -127,15 +136,81 @@
             padding-bottom: 0.5rem;
         }
 
+        /* Notionカレンダー用のスタイル */
+        .calendar-section {
+            margin-bottom: 3rem;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .calendar-container {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .calendar-note {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #1565c0;
+            border-left: 4px solid #2196f3;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 2rem; margin: 1rem; }
             .radio-group { flex-direction: column; gap: 1rem; }
+            .calendar-container { height: 500px; }
+            .calendar-section { padding: 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>MV制作依頼フォーム</h1>
+
+        <!-- Notionカレンダーセクション -->
+        <div class="calendar-section">
+            <h2>制作スケジュール確認</h2>
+            <div class="calendar-note">
+                <strong>ご依頼前に必ずスケジュールをご確認ください</strong><br>
+                赤色：制作中・予約済み | 緑色：空き日程 | 青色：その他予定
+            </div>
+            
+            <!-- Notionカレンダーの埋め込み -->
+            <!-- オプション1: 直接NotionページのURL（パブリックページ） -->
+            <iframe 
+                class="calendar-container"
+                src="YOUR_NOTION_PAGE_URL"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+            
+            <!-- オプション2: カレンダーが表示されない場合の代替表示 -->
+            <div id="calendar-fallback" style="display: none;">
+                <div style="text-align: center; padding: 2rem; background: white; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; color: #666;">📅 制作スケジュール</h3>
+                    <p style="margin-bottom: 1rem; color: #666;">
+                        カレンダーを表示できない場合は、以下のリンクから直接ご確認ください
+                    </p>
+                    <a href="https://www.notion.so/1788efb5c11a80329a8ae8abbc2ba295?v=2408efb5c11a80adba51000cfdaed055&source=copy_link" target="_blank" 
+                       style="display: inline-block; background: #2c3e50; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 6px;">
+                        制作スケジュールを確認する
+                    </a>
+                </div>
+            </div>
+            
+            <div class="form-note">
+                ※ 上記カレンダーで空いている日程を確認してから、下記フォームで納品希望日をご入力ください。
+            </div>
+        </div>
 
         <form action="https://formspree.io/f/mvgqrdev" method="POST">
             <input type="hidden" name="_subject" value="MV制作依頼">
@@ -205,8 +280,7 @@
 
             <div class="form-group">
                 <label for="delivery_date">納品希望日 <span class="required">(必須)</span></label>
-                <!-- ★ 文言を変更 -->
-                <div class="form-note">※完成されたイラストとmix済みの音源をいただいてから最低5日の時間をいただいております。</div>
+                <div class="form-note">※完成されたイラストとmix済みの音源をいただいてから最低5日の時間をいただいております。上記カレンダーで空き状況をご確認ください。</div>
                 <input type="date" id="delivery_date" name="delivery_date" required>
             </div>
 
@@ -249,7 +323,6 @@
             </div>
 
             <div class="form-group">
-                <!-- ★ ラベル文言を変更 -->
                 <label for="material_url">素材データURL（完成版イラスト、mix済み音源、歌詞） <span class="required">(必須)</span></label>
                 <input type="url" id="material_url" name="material_url" placeholder="例：https://gigafile.nu/12345" required>
             </div>
@@ -270,6 +343,22 @@
     </div>
 
     <script>
+        // カレンダーの読み込みエラーハンドリング
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.querySelector('.calendar-container');
+            const fallback = document.getElementById('calendar-fallback');
+            
+            // 5秒後にカレンダーが読み込まれていない場合、代替表示を表示
+            setTimeout(function() {
+                if (iframe && iframe.contentDocument === null) {
+                    iframe.style.display = 'none';
+                    if (fallback) {
+                        fallback.style.display = 'block';
+                    }
+                }
+            }, 5000);
+        });
+
         // フォーム送信時の処理
         document.querySelector('form').addEventListener('submit', function(e) {
             // 必須項目のチェック
