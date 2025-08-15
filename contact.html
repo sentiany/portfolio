@@ -3,400 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MV制作依頼フォーム - Nacht | ナハト</title>
+    <title>制作スケジュールカレンダー</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
 
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: #f5f5f5;
+            color: #333;
             padding: 2rem;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #333;
-            font-weight: 300;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-            font-weight: 400;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 0.5rem;
-        }
-
-        .form-group { margin-bottom: 2rem; }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .required { color: #e74c3c; }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="url"],
-        input[type="date"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #2c3e50;
-        }
-
-        textarea { resize: vertical; min-height: 120px; }
-
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .radio-item { display: flex; align-items: center; gap: 0.5rem; }
-
-        input[type="radio"], input[type="checkbox"] { width: auto; }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .submit-btn {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            margin-top: 2rem;
-        }
-
-        .submit-btn:hover { background: #34495e; }
-
-        .playlist-btn {
-            display: inline-block;
-            background: #2c3e50;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-            margin-top: 0.5rem;
-        }
-
-        .playlist-btn:hover { background: #34495e; }
-
-        .form-note {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-        }
-
-        /* Notionカレンダー用のスタイル */
-        .calendar-section {
-            margin-bottom: 3rem;
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid #e9ecef;
+            min-height: 100vh;
         }
 
         .calendar-container {
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 8px;
+            max-width: 1000px;
+            margin: 0 auto;
             background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .calendar-note {
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .status-note {
             background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            border-left: 4px solid #2196f3;
+            color: #1565c0;
+        }
+
+        .notion-iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .fallback-content {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .fallback-content.show {
+            display: block;
+        }
+
+        .calendar-link-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .calendar-link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .legend {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .legend-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            padding: 0.5rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .loading-message {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
             padding: 1rem;
             border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #1565c0;
-            border-left: 4px solid #2196f3;
+            margin: 1rem 0;
+            border-left: 4px solid #f44336;
         }
 
         @media (max-width: 768px) {
-            .container { padding: 2rem; margin: 1rem; }
-            .radio-group { flex-direction: column; gap: 1rem; }
-            .calendar-container { height: 500px; }
-            .calendar-section { padding: 1rem; }
+            body {
+                padding: 1rem;
+            }
+            
+            .calendar-container {
+                padding: 1.5rem;
+            }
+            
+            .calendar-title {
+                font-size: 1.5rem;
+            }
+            
+            .notion-iframe {
+                height: 600px;
+            }
+            
+            .legend-items {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MV制作依頼フォーム</h1>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h1 class="calendar-title">📅 制作スケジュールカレンダー</h1>
+        </div>
 
-        <!-- Notionカレンダーセクション -->
-        <div class="calendar-section">
-            <h2>制作スケジュール確認</h2>
-            <div class="calendar-note">
-                <strong>ご依頼前に必ずスケジュールをご確認ください</strong><br>
-                赤色：制作中・予約済み | 緑色：空き日程 | 青色：その他予定
-            </div>
-            
-            <!-- Notionカレンダーの埋め込み -->
-            <!-- オプション1: 直接NotionページのURL（パブリックページ） -->
-            <iframe 
-                class="calendar-container"
-                src="YOUR_NOTION_PAGE_URL"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
-            
-            <!-- オプション2: カレンダーが表示されない場合の代替表示 -->
-            <div id="calendar-fallback" style="display: none;">
-                <div style="text-align: center; padding: 2rem; background: white; border-radius: 8px;">
-                    <h3 style="margin-bottom: 1rem; color: #666;">📅 制作スケジュール</h3>
-                    <p style="margin-bottom: 1rem; color: #666;">
-                        カレンダーを表示できない場合は、以下のリンクから直接ご確認ください
-                    </p>
-                    <a href="https://www.notion.so/1788efb5c11a80329a8ae8abbc2ba295?v=2408efb5c11a80adba51000cfdaed055&source=copy_link" target="_blank" 
-                       style="display: inline-block; background: #2c3e50; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 6px;">
-                        制作スケジュールを確認する
-                    </a>
-                </div>
-            </div>
-            
-            <div class="form-note">
-                ※ 上記カレンダーで空いている日程を確認してから、下記フォームで納品希望日をご入力ください。
+        <div class="status-note">
+            <strong>ご依頼前に必ずスケジュールをご確認ください</strong><br>
+            下記カレンダーで空いている日程を確認してから、フォームで納品希望日をご入力ください。
+        </div>
+
+        <div id="loading" class="loading-message">
+            カレンダーを読み込み中...
+        </div>
+
+        <!-- Notionカレンダーの埋め込み -->
+        <iframe 
+            id="notionCalendar"
+            class="notion-iframe"
+            src="https://www.notion.so/2328efb5c11a80ce9653f46ad417d0b1?v=2408efb5c11a80adba51000cfdaed055&embed=true"
+            title="制作スケジュールカレンダー"
+            style="display: none;">
+        </iframe>
+
+        <!-- フォールバック表示 -->
+        <div id="fallback" class="fallback-content">
+            <h3 style="margin-bottom: 1rem; color: #333;">📅 制作スケジュール</h3>
+            <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6;">
+                カレンダーを直接表示できない場合は、<br>
+                下記ボタンから直接Notionページをご確認ください
+            </p>
+            <a href="https://www.notion.so/2328efb5c11a80ce9653f46ad417d0b1?v=2408efb5c11a80adba51000cfdaed055" 
+               target="_blank" 
+               class="calendar-link-btn">
+                📅 制作スケジュールを確認する
+            </a>
+            <div style="margin-top: 1rem; font-size: 0.9rem; color: #999;">
+                ※ 新しいタブで開きます
             </div>
         </div>
 
-        <form action="https://formspree.io/f/mvgqrdev" method="POST">
-            <input type="hidden" name="_subject" value="MV制作依頼">
-
-            <div class="form-group">
-                <label for="activity_name">活動名 <span class="required">(必須)</span></label>
-                <input type="text" id="activity_name" name="activity_name" placeholder="例：○○（アーティスト名/ユニット名）" required>
-            </div>
-
-            <div class="form-group">
-                <label for="sns_url">活動SNS URL <span class="required">(必須)</span></label>
-                <input type="url" id="sns_url" name="sns_url" placeholder="例：https://twitter.com/○○ / https://www.youtube.com/@○○" required>
-            </div>
-
-            <div class="form-group">
-                <label for="purpose">用途（例：歌ってみた、オリジナル楽曲） <span class="required">(必須)</span></label>
-                <input type="text" id="purpose" name="purpose" placeholder="例：歌ってみた / オリジナル楽曲" required>
-            </div>
-
-            <div class="form-group">
-                <label for="song_name">楽曲名 <span class="required">(必須)</span></label>
-                <input type="text" id="song_name" name="song_name" placeholder="例：○○（楽曲名）" required>
-            </div>
-
-            <div class="form-group">
-                <label for="original_url">カバーの場合は原曲URL</label>
-                <input type="url" id="original_url" name="original_url" placeholder="例：https://www.youtube.com/watch?v=○○">
-            </div>
-
-            <div class="form-group">
-                <div class="section-title">ご希望する連絡手段 <span class="required">(必須)</span></div>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" id="contact_x" name="contact_method" value="X(旧Twitter)のDM" required>
-                        <label for="contact_x">X（旧Twitter）のDM</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" id="contact_email" name="contact_method" value="メール" required>
-                        <label for="contact_email">メール</label>
-                    </div>
+        <div class="legend">
+            <div class="legend-title">スケジュール状況の見方</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span><strong>赤色：</strong>制作中・予約済み</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #28a745;"></div>
+                    <span><strong>緑色：</strong>空き日程</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2196f3;"></div>
+                    <span><strong>青色：</strong>その他予定</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffc107;"></div>
+                    <span><strong>黄色：</strong>要相談</span>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="email">メールの方のみご連絡メールアドレス</label>
-                <input type="email" id="email" name="email" placeholder="例：example@email.com">
-            </div>
-
-            <div class="form-group">
-                <label for="budget">ご予算 <span class="required">(必須)</span></label>
-                <input type="text" id="budget" name="budget" required>
-            </div>
-
-            <div class="form-group">
-                <div class="section-title">お振込方法 <span class="required">(必須)</span></div>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" id="payment_paypal" name="payment_method" value="PayPay" required>
-                        <label for="payment_paypal">PayPay</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" id="payment_bank" name="payment_method" value="銀行振込" required>
-                        <label for="payment_bank">銀行振込</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="delivery_date">納品希望日 <span class="required">(必須)</span></label>
-                <div class="form-note">※完成されたイラストとmix済みの音源をいただいてから最低5日の時間をいただいております。上記カレンダーで空き状況をご確認ください。</div>
-                <input type="date" id="delivery_date" name="delivery_date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="release_date">公開予定日</label>
-                <input type="date" id="release_date" name="release_date">
-            </div>
-
-            <div class="form-group">
-                <label for="credit_names">クレジット表記名（作詞作曲編曲、音源、MIX、マスタリング、イラスト担当）</label>
-                <textarea id="credit_names" name="credit_names" placeholder="担当者名を記入してください"></textarea>
-            </div>
-
-            <div class="form-group">
-                <div class="section-title">サムネイルの希望 <span class="required">(必須)</span></div>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" id="thumbnail_yes" name="thumbnail_needed" value="はい" required>
-                        <label for="thumbnail_yes">はい</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" id="thumbnail_no" name="thumbnail_needed" value="いいえ" required>
-                        <label for="thumbnail_no">いいえ</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="section-title">髪揺れ等のアニメーションの希望 <span class="required">(必須)</span></div>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" id="animation_yes" name="animation_needed" value="はい" required>
-                        <label for="animation_yes">はい</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" id="animation_no" name="animation_needed" value="いいえ" required>
-                        <label for="animation_no">いいえ</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="material_url">素材データURL（完成版イラスト、mix済み音源、歌詞） <span class="required">(必須)</span></label>
-                <input type="url" id="material_url" name="material_url" placeholder="例：https://gigafile.nu/12345" required>
-            </div>
-
-            <div class="form-group">
-                <label for="reference_video">参考動画（想定している完成形に近いイメージのものを添付してください） <span class="required">(必須)</span></label>
-                <a href="https://youtube.com/playlist?list=PLooHxUATgdtV02jTvWy0XWbPmzAIZT3ZB&si=cqMf_pf6RhdJMGfl" target="_blank" class="playlist-btn">参考動画再生リストを見る</a>
-                <textarea id="reference_video" name="reference_video" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="other_requests">その他色味など伝えたい事項</label>
-                <textarea id="other_requests" name="other_requests"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">依頼を送信する</button>
-        </form>
+        </div>
     </div>
 
     <script>
-        // カレンダーの読み込みエラーハンドリング
         document.addEventListener('DOMContentLoaded', function() {
-            const iframe = document.querySelector('.calendar-container');
-            const fallback = document.getElementById('calendar-fallback');
+            const iframe = document.getElementById('notionCalendar');
+            const loading = document.getElementById('loading');
+            const fallback = document.getElementById('fallback');
             
-            // 5秒後にカレンダーが読み込まれていない場合、代替表示を表示
+            // iframe読み込み完了時の処理
+            iframe.onload = function() {
+                loading.style.display = 'none';
+                iframe.style.display = 'block';
+                console.log('Notionカレンダーが正常に読み込まれました');
+            };
+            
+            // iframe読み込みエラー時の処理
+            iframe.onerror = function() {
+                loading.style.display = 'none';
+                fallback.classList.add('show');
+                console.log('Notionカレンダーの読み込みに失敗しました');
+            };
+            
+            // 5秒後にまだ読み込まれていない場合、フォールバックを表示
             setTimeout(function() {
-                if (iframe && iframe.contentDocument === null) {
-                    iframe.style.display = 'none';
-                    if (fallback) {
-                        fallback.style.display = 'block';
-                    }
+                if (iframe.style.display === 'none') {
+                    loading.style.display = 'none';
+                    fallback.classList.add('show');
+                    console.log('タイムアウト: フォールバック表示に切り替えました');
                 }
             }, 5000);
-        });
-
-        // フォーム送信時の処理
-        document.querySelector('form').addEventListener('submit', function(e) {
-            // 必須項目のチェック
-            const requiredFields = document.querySelectorAll('[required]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.style.borderColor = '#e74c3c';
-                } else {
-                    field.style.borderColor = '#ddd';
-                }
-            });
-
-            if (!isValid) {
-                e.preventDefault();
-                alert('必須項目を入力してください。');
-                return;
-            }
-
-            // 送信確認
-            if (!confirm('依頼内容を送信しますか？')) {
-                e.preventDefault();
-                return;
-            }
-
-            // 送信後のメッセージ表示
-            setTimeout(function() {
-                document.querySelector('.container').innerHTML = `
-                    <div style="text-align: center; padding: 3rem;">
-                        <h1 style="color: #2c3e50; margin-bottom: 2rem;">ご依頼いただきありがとうございます</h1>
-                        <p style="font-size: 1.1rem; color: #666; line-height: 1.8;">
-                            ご希望する連絡手段あてに返信いたしますので<br>しばらくお待ちください。
-                        </p>
-                    </div>
-                `;
-            }, 1000);
         });
     </script>
 </body>
