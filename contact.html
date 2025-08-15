@@ -20,11 +20,11 @@
         }
 
         .calendar-container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            padding: 2rem;
+            padding: 3rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
@@ -51,26 +51,25 @@
             color: #1565c0;
         }
 
-        .notion-iframe {
-            width: 100%;
-            height: 700px;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            background: white;
-        }
-
-        .fallback-content {
-            display: none;
+        .calendar-access {
             text-align: center;
             padding: 3rem;
             background: #f8f9fa;
             border-radius: 12px;
-            margin-top: 2rem;
+            margin: 2rem 0;
         }
 
-        .fallback-content.show {
-            display: block;
+        .calendar-access h3 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .calendar-access p {
+            margin-bottom: 2rem;
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
         }
 
         .calendar-link-btn {
@@ -84,7 +83,6 @@
             font-size: 1.1rem;
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
             transition: all 0.3s ease;
-            margin-top: 1rem;
         }
 
         .calendar-link-btn:hover {
@@ -92,6 +90,12 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
             color: white;
             text-decoration: none;
+        }
+
+        .note-text {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #999;
         }
 
         .legend {
@@ -129,37 +133,17 @@
             flex-shrink: 0;
         }
 
-        .loading-message {
-            text-align: center;
-            padding: 3rem;
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        .error-message {
-            background: #ffebee;
-            color: #c62828;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            border-left: 4px solid #f44336;
-        }
-
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
             }
             
             .calendar-container {
-                padding: 1.5rem;
+                padding: 2rem;
             }
             
             .calendar-title {
                 font-size: 1.5rem;
-            }
-            
-            .notion-iframe {
-                height: 600px;
             }
             
             .legend-items {
@@ -171,7 +155,7 @@
 <body>
     <div class="calendar-container">
         <div class="calendar-header">
-            <h1 class="calendar-title">📅 制作スケジュールカレンダー</h1>
+            <h1 class="calendar-title">📅 制作スケジュール確認</h1>
         </div>
 
         <div class="status-note">
@@ -179,33 +163,19 @@
             下記カレンダーで空いている日程を確認してから、フォームで納品希望日をご入力ください。
         </div>
 
-        <div id="loading" class="loading-message">
-            カレンダーを読み込み中...
-        </div>
-
-        <!-- Notionカレンダーの埋め込み -->
-        <iframe 
-            id="notionCalendar"
-            class="notion-iframe"
-            src="https://www.notion.so/2328efb5c11a80ce9653f46ad417d0b1?v=2408efb5c11a80adba51000cfdaed055&embed=true"
-            title="制作スケジュールカレンダー"
-            style="display: none;">
-        </iframe>
-
-        <!-- フォールバック表示 -->
-        <div id="fallback" class="fallback-content">
-            <h3 style="margin-bottom: 1rem; color: #333;">📅 制作スケジュール</h3>
-            <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6;">
-                カレンダーを直接表示できない場合は、<br>
-                下記ボタンから直接Notionページをご確認ください
+        <div class="calendar-access">
+            <h3>📅 制作スケジュールカレンダー</h3>
+            <p>
+                最新のスケジュール状況をご確認いただけます。<br>
+                下記ボタンをクリックして、空いている日程をご確認ください。
             </p>
             <a href="https://www.notion.so/2328efb5c11a80ce9653f46ad417d0b1?v=2408efb5c11a80adba51000cfdaed055" 
                target="_blank" 
                class="calendar-link-btn">
                 📅 制作スケジュールを確認する
             </a>
-            <div style="margin-top: 1rem; font-size: 0.9rem; color: #999;">
-                ※ 新しいタブで開きます
+            <div class="note-text">
+                ※ 新しいタブでNotionページが開きます
             </div>
         </div>
 
@@ -231,36 +201,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const iframe = document.getElementById('notionCalendar');
-            const loading = document.getElementById('loading');
-            const fallback = document.getElementById('fallback');
-            
-            // iframe読み込み完了時の処理
-            iframe.onload = function() {
-                loading.style.display = 'none';
-                iframe.style.display = 'block';
-                console.log('Notionカレンダーが正常に読み込まれました');
-            };
-            
-            // iframe読み込みエラー時の処理
-            iframe.onerror = function() {
-                loading.style.display = 'none';
-                fallback.classList.add('show');
-                console.log('Notionカレンダーの読み込みに失敗しました');
-            };
-            
-            // 5秒後にまだ読み込まれていない場合、フォールバックを表示
-            setTimeout(function() {
-                if (iframe.style.display === 'none') {
-                    loading.style.display = 'none';
-                    fallback.classList.add('show');
-                    console.log('タイムアウト: フォールバック表示に切り替えました');
-                }
-            }, 5000);
-        });
-    </script>
 </body>
 </html>
